@@ -1,0 +1,17 @@
+---
+layout: default
+title: Knowledge Base
+---
+
+<h1>Knowledge Base - Windows Server</h1>
+<p>Elenco delle KB disponibili:</p>
+<ul>
+  {% assign kb_files = site.static_files | where_exp: "file", "file.path contains '/kb/windows-server/'" %}
+  {% for file in kb_files %}
+    {% if file.extname == ".html" %}
+      <li>
+        <a href="{{ file.path | replace: ' ', '%20' }}">{{ file.name }}</a>
+      </li>
+    {% endif %}
+  {% endfor %}
+</ul>
