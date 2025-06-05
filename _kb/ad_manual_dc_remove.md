@@ -1,9 +1,9 @@
 ---
 layout: default
-title: Manual Domain Controller Removal – Step-by-Step Guide
+title: Manual Domain Controller Removal (Step-by-Step Guide)
 ---
 
-(# 🛠️ Manual Domain Controller Removal – Step-by-Step Guide
+# 🛠️ Manual Domain Controller Removal (Step-by-Step Guide)
 
 This procedure is intended for situations where the Domain Controller (DC) is **offline** or **cannot be demoted** using Server Manager or `dcpromo`.
 
@@ -100,4 +100,3 @@ This procedure is intended for situations where the Domain Controller (DC) is **
 ## 📺 Useful Resources
 
 - [🧾 Microsoft Docs – Demoting Domain Controllers and Domains](https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/deploy/demoting-domain-controllers-and-domains--level-200-)
-)

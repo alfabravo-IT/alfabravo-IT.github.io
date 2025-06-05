@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Knowledge Base Index
+title: Windows Knowledge Base Index
 ---
 
 # Knowledge Base Index
