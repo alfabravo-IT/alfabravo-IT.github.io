@@ -3,23 +3,38 @@ layout: default
 title: Knowledge Base
 ---
 
-<h1>Knowledge Base - Windows Server</h1>
-<p>Elenco delle KB disponibili:</p>
-<ul>
-  {% assign kb_titles = 
-    {
-      "ad_manual_dc_remove.html":"Rimozione manuale di un Domain Controller",
-     
-    }
-  %}
-  {% assign kb_files = site.static_files | where_exp: "file", "file.path contains '/kb/windows-server/'" %}
-  {% for file in kb_files %}
-    {% if file.extname == ".html" %}
-      <li>
-        <a href="{{ file.path | replace: ' ', '%20' }}" target="_blank">
-          {{ kb_titles[file.name] | default: file.name }}
-        </a>
-      </li>
-    {% endif %}
-  {% endfor %}
-</ul>
+<!-- HEADER PERSONALIZZATO -->
+<header style="background: #2a4c7c; color: #fff; padding: 1.5em 0; text-align: center;">
+  <h1 style="margin-bottom: 10px;">alfabravo-IT KB - Windows Server</h1>
+  <p style="font-size: 1.2em;">Benvenuto nella Knowledge Base tecnica per Windows Server</p>
+</header>
+
+<main style="padding: 2em 0;">
+  <p>Elenco delle KB disponibili:</p>
+  <ul>
+    {% assign kb_titles = 
+      {
+        "ad_manual_dc_remove.html":"Rimozione manuale di un Domain Controller",
+        "esempio_kb.html":"Esempio KB: aggiunta utente",
+        "altra_kb.html":"Titolo leggibile altra KB"
+      }
+    %}
+    {% assign kb_files = site.static_files | where_exp: "file", "file.path contains '/kb/windows-server/'" %}
+    {% for file in kb_files %}
+      {% if file.extname == ".html" %}
+        <li>
+          <a href="{{ file.path | replace: ' ', '%20' }}" target="_blank">
+            {{ kb_titles[file.name] | default: file.name }}
+          </a>
+        </li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+</main>
+
+<!-- FOOTER PERSONALIZZATO -->
+<footer style="background: #eee; color: #333; padding: 1.2em 0; text-align: center; margin-top: 2em;">
+  <small>
+    &copy; 2025 alfabravo-IT. Tutti i diritti riservati. | <a href="mailto:info@alfabravo.it">info@alfabravo.it</a>
+  </small>
+</footer>
