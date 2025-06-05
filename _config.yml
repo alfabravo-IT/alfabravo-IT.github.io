@@ -1,2 +1,5 @@
 title: "alfabravo-IT KB"
 permalink: pretty
+collections:
+  kb:
+    output: true
