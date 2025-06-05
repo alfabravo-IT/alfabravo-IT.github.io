@@ -1,0 +1,5 @@
+title: "Documentazione Tecnica"
+description: "Sito statico generato con Jekyll e GitHub Pages"
+theme: minima
+markdown: kramdown
+permalink: pretty
