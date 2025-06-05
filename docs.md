@@ -1,2 +1,0 @@
-# elenco documentazione
-

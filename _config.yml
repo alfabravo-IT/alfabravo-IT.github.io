@@ -5,4 +5,4 @@ markdown: kramdown
 permalink: pretty
 
 header_pages:
-  - kb.md
+  - index.md
