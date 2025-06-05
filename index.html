@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Indice Knowledge Base</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Indice Knowledge Base</h1>
+  <ul>
+    <li><a href="kb/ad_manual_dc_remove.html">Rimozione manuale di un Domain Controller</a></li>
+    <li><a href="kb/come_unire_pc_dominio.html">Come unire un PC al dominio</a></li>
+    <!-- Aggiungi qui altre KB -->
+  </ul>
+  <script>
+    // Tutti i link dentro la lista si apriranno in una nuova scheda
+    document.querySelectorAll('ul a').forEach(function(link) {
+      link.setAttribute('target', '_blank');
+    });
+  </script>
+</body>
+</html>
