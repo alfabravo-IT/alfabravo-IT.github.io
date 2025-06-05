@@ -1,6 +1,6 @@
 ---
 layout: default
-title: KB Index
+title: Knowledge Base Index
 ---
 
 # Knowledge Base Index
