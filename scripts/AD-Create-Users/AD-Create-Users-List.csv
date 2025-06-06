@@ -1,0 +1,5 @@
+Nome,Cognome,Email,Account,Gruppi
+jdoe,John,Doe,jdoe@example.com,Gruppo1;Gruppo2;Gruppo3
+asmith,Alice,Smith,asmith@example.com,Gruppo2;Gruppo4
+bmiller,Bob,Miller,bmiller@example.com,Gruppo1;Gruppo5
+
