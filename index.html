@@ -29,23 +29,26 @@
   </ul>
 
   <script>
-    // Apri i link in nuova scheda
+    // Apri ogni link in nuova scheda
     document.querySelectorAll('#kb-list a').forEach(link => {
       link.setAttribute('target', '_blank');
     });
 
-    // Ordina alfabeticamente
+    // Ordina alfabeticamente i <li> al caricamento
     const ul = document.getElementById('kb-list');
     const items = Array.from(ul.querySelectorAll('li'));
+
     items.sort((a, b) => {
-      return a.textContent.trim().toLowerCase().localeCompare(b.textContent.trim().toLowerCase());
+      return a.textContent.trim().localeCompare(b.textContent.trim());
     });
+
+    // Rimuovi tutti e riaggiungi ordinati
     items.forEach(li => ul.appendChild(li));
 
-    // Filtro ricerca live
-    const input = document.getElementById('searchInput');
-    input.addEventListener('input', function () {
-      const filter = input.value.toLowerCase();
+    // Filtro ricerca
+    const searchInput = document.getElementById('searchInput');
+    searchInput.addEventListener('input', function () {
+      const filter = searchInput.value.toLowerCase();
       items.forEach(li => {
         const text = li.textContent.toLowerCase();
         li.style.display = text.includes(filter) ? '' : 'none';
