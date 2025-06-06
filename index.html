@@ -5,20 +5,51 @@
   <title>alfabravo-IT "Knowledge Base Index"</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="style.css">
+  <style>
+    input[type="text"] {
+      padding: 8px;
+      margin-bottom: 10px;
+      width: 100%;
+      max-width: 400px;
+      font-size: 16px;
+    }
+  </style>
 </head>
 <body>
   <h1>Knowledge Base Index</h1>
-  <ul>
+
+  <input type="text" id="searchInput" placeholder="🔍 Cerca un argomento...">
+
+  <ul id="kb-list">
     <li><a href="docs/ad_manual_dc_remove.html">Manual Domain Controller Removal (Step-by-Step Guide)</a></li>
     <li><a href="docs/azure-sql-arc.html">Configurazione di SQL Server on-premises con Azure Arc</a></li>
     <li><a href="docs/ad_ports_services.html">Services, Ports, and Protocols for Active Directory</a></li>
-    li><a href="docs/ad_cmdlt_check_replica.html">Commands to Check the Status of Active Directory Replication</a></li>
+    <li><a href="docs/ad_cmdlt_check_replica.html">Commands to Check the Status of Active Directory Replication</a></li>
     <!-- Add more KBs here -->
   </ul>
+
   <script>
-    // All links inside the list will open in a new tab
-    document.querySelectorAll('ul a').forEach(function(link) {
+    // Apri i link in nuova scheda
+    document.querySelectorAll('#kb-list a').forEach(link => {
       link.setAttribute('target', '_blank');
+    });
+
+    // Ordina alfabeticamente
+    const ul = document.getElementById('kb-list');
+    const items = Array.from(ul.querySelectorAll('li'));
+    items.sort((a, b) => {
+      return a.textContent.trim().toLowerCase().localeCompare(b.textContent.trim().toLowerCase());
+    });
+    items.forEach(li => ul.appendChild(li));
+
+    // Filtro ricerca live
+    const input = document.getElementById('searchInput');
+    input.addEventListener('input', function () {
+      const filter = input.value.toLowerCase();
+      items.forEach(li => {
+        const text = li.textContent.toLowerCase();
+        li.style.display = text.includes(filter) ? '' : 'none';
+      });
     });
   </script>
 </body>
