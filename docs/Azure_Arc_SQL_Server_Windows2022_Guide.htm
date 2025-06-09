@@ -1,0 +1,501 @@
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=Generator content="Microsoft Word 15 (filtered)">
+
+<script>
+  document.querySelectorAll('a').forEach(function(link) {
+    link.setAttribute('target', '_blank');
+  });
+</script>
+<title>Configuring SQL Server Enabled by Azure Arc on Windows Server</title>
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:Courier;
+	panose-1:2 7 4 9 2 2 5 2 4 4;}
+@font-face
+	{font-family:"MS Mincho";
+	panose-1:2 2 6 9 4 2 5 8 3 4;}
+@font-face
+	{font-family:"MS Gothic";
+	panose-1:2 11 6 9 7 2 5 8 2 4;}
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:Cambria;
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:"\@MS Gothic";
+	panose-1:2 11 6 9 7 2 5 8 2 4;}
+@font-face
+	{font-family:"\@MS Mincho";
+	panose-1:2 2 6 9 4 2 5 8 3 4;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:10.0pt;
+	margin-left:0cm;
+	line-height:115%;
+	font-size:11.0pt;
+	font-family:"Cambria",serif;}
+h1
+	{mso-style-link:"Heading 1 Char";
+	margin-top:24.0pt;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:0cm;
+	line-height:115%;
+	page-break-after:avoid;
+	font-size:14.0pt;
+	font-family:"Calibri",sans-serif;
+	color:#365F91;}
+h2
+	{mso-style-link:"Heading 2 Char";
+	margin-top:10.0pt;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:0cm;
+	line-height:115%;
+	page-break-after:avoid;
+	font-size:13.0pt;
+	font-family:"Calibri",sans-serif;
+	color:#4F81BD;}
+p.MsoTitle, li.MsoTitle, div.MsoTitle
+	{mso-style-link:"Title Char";
+	margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:15.0pt;
+	margin-left:0cm;
+	border:none;
+	padding:0cm;
+	font-size:26.0pt;
+	font-family:"Calibri",sans-serif;
+	color:#17365D;
+	letter-spacing:.25pt;}
+p.MsoTitleCxSpFirst, li.MsoTitleCxSpFirst, div.MsoTitleCxSpFirst
+	{mso-style-link:"Title Char";
+	margin:0cm;
+	border:none;
+	padding:0cm;
+	font-size:26.0pt;
+	font-family:"Calibri",sans-serif;
+	color:#17365D;
+	letter-spacing:.25pt;}
+p.MsoTitleCxSpMiddle, li.MsoTitleCxSpMiddle, div.MsoTitleCxSpMiddle
+	{mso-style-link:"Title Char";
+	margin:0cm;
+	border:none;
+	padding:0cm;
+	font-size:26.0pt;
+	font-family:"Calibri",sans-serif;
+	color:#17365D;
+	letter-spacing:.25pt;}
+p.MsoTitleCxSpLast, li.MsoTitleCxSpLast, div.MsoTitleCxSpLast
+	{mso-style-link:"Title Char";
+	margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:15.0pt;
+	margin-left:0cm;
+	border:none;
+	padding:0cm;
+	font-size:26.0pt;
+	font-family:"Calibri",sans-serif;
+	color:#17365D;
+	letter-spacing:.25pt;}
+p.MsoNoSpacing, li.MsoNoSpacing, div.MsoNoSpacing
+	{margin:0cm;
+	font-size:11.0pt;
+	font-family:"Cambria",serif;}
+p.MsoListParagraph, li.MsoListParagraph, div.MsoListParagraph
+	{margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:10.0pt;
+	margin-left:36.0pt;
+	line-height:115%;
+	font-size:11.0pt;
+	font-family:"Cambria",serif;}
+p.MsoListParagraphCxSpFirst, li.MsoListParagraphCxSpFirst, div.MsoListParagraphCxSpFirst
+	{margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:36.0pt;
+	line-height:115%;
+	font-size:11.0pt;
+	font-family:"Cambria",serif;}
+p.MsoListParagraphCxSpMiddle, li.MsoListParagraphCxSpMiddle, div.MsoListParagraphCxSpMiddle
+	{margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:36.0pt;
+	line-height:115%;
+	font-size:11.0pt;
+	font-family:"Cambria",serif;}
+p.MsoListParagraphCxSpLast, li.MsoListParagraphCxSpLast, div.MsoListParagraphCxSpLast
+	{margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:10.0pt;
+	margin-left:36.0pt;
+	line-height:115%;
+	font-size:11.0pt;
+	font-family:"Cambria",serif;}
+span.Heading1Char
+	{mso-style-name:"Heading 1 Char";
+	mso-style-link:"Heading 1";
+	font-family:"Calibri",sans-serif;
+	color:#365F91;
+	font-weight:bold;}
+span.Heading2Char
+	{mso-style-name:"Heading 2 Char";
+	mso-style-link:"Heading 2";
+	font-family:"Calibri",sans-serif;
+	color:#4F81BD;
+	font-weight:bold;}
+span.TitleChar
+	{mso-style-name:"Title Char";
+	mso-style-link:Title;
+	font-family:"Calibri",sans-serif;
+	color:#17365D;
+	letter-spacing:.25pt;}
+.MsoPapDefault
+	{margin-bottom:10.0pt;
+	line-height:115%;}
+@page WordSection1
+	{size:595.3pt 841.9pt;
+	margin:1.0cm 1.0cm 1.0cm 1.0cm;}
+div.WordSection1
+	{page:WordSection1;}
+ /* List Definitions */
+ ol
+	{margin-bottom:0cm;}
+ul
+	{margin-bottom:0cm;}
+-->
+</style>
+
+</head>
+
+<body lang=IT style='word-wrap:break-word'>
+
+<div class=WordSection1>
+
+<div style='border:none;border-bottom:solid #4F81BD 1.0pt;padding:0cm 0cm 4.0pt 0cm'>
+
+<p class=MsoTitle><span lang=EN-US style='font-size:24.0pt'>Configuring SQL
+Server Enabled by Azure Arc on Windows Server</span></p>
+
+</div>
+
+<h1><span lang=EN-US>1. Azure Prerequisites</span></h1>
+
+<p class=MsoNormal><span lang=EN-US>Before configuring the server, ensure the
+following in Azure:</span></p>
+
+<p class=MsoNormal><span lang=EN-US>- Azure Subscription: Active and
+accessible. The user who carries out the activities must have at least the
+&quot;Contributor&quot; role on the &quot;Subscription&quot; on which they will
+be working</span></p>
+
+<p class=MsoNormal><span lang=EN-US>- Resource Group: Create one (e.g., rg-sqlarc-[ambiente]-[siglia_ciente]).</span></p>
+
+<p class=MsoNormal><span lang=EN-US>- Region: Choose a supported region (e.g.,
+westeurope).</span></p>
+
+<p class=MsoNormal><span lang=EN-US>- Register Resource Providers using Azure
+CLI:</span></p>
+
+<p class=MsoNormal style='background:#1E1E1E'><span lang=EN-US
+style='font-family:"Courier New";color:gainsboro'>az login<br>
+az account set --subscription </span><span lang=EN-US style='font-family:"Courier New";
+color:#D69D85'>&quot;&lt;your-subscription-id&gt;&quot;</span><span lang=EN-US
+style='font-family:"Courier New";color:gainsboro'><br>
+az provider register --namespace Microsoft.HybridCompute<br>
+az provider register --namespace Microsoft.GuestConfiguration<br>
+az provider register --namespace Microsoft.AzureArcData</span></p>
+
+<h1><span lang=EN-US>2. Windows Server Setup</span></h1>
+
+<p class=MsoNormal><span lang=EN-US>Ensure the following requirements are met
+on the server:</span></p>
+
+<p class=MsoNormal><span lang=EN-US>- Windows Server 2016+, updated.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>- SQL Server 2012 or later installed
+(recommended: SQL Server 2022).</span></p>
+
+<p class=MsoNormal><span lang=EN-US>- PowerShell 5.1 or later.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>- Internet access.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>- Static hostname and synchronized system
+clock (NTP).</span></p>
+
+<p class=MsoNormal><span lang=EN-US>- Local administrator rights.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>- Port 443 open.</span></p>
+
+<table class=MsoNormalTable border=0 cellpadding=0 style='margin-left:-.4pt;
+ background:#FAFAFA'>
+ <thead>
+  <tr>
+   <td width=311 valign=top style='width:233.0pt;border:solid #E6E6E6 1.0pt;
+   background:whitesmoke;padding:6.0pt 6.0pt 5.25pt 9.0pt'>
+   <p class=MsoNormal><b><span style='font-size:9.0pt;line-height:115%;
+   color:black'>Endpoint / Domain</span></b></p>
+   </td>
+   <td width=407 valign=top style='width:305.35pt;border:solid #E6E6E6 1.0pt;
+   border-left:none;background:whitesmoke;padding:6.0pt 6.0pt 5.25pt 9.0pt'>
+   <p class=MsoNormal><b><span style='font-size:9.0pt;line-height:115%;
+   color:black'>Purpose</span></b></p>
+   </td>
+  </tr>
+ </thead>
+ <tr>
+  <td width=311 valign=top style='width:233.0pt;border:solid #E6E6E6 1.0pt;
+  border-top:none;padding:6.0pt 6.0pt 5.25pt 9.0pt'>
+  <p class=MsoNormal><span style='font-size:9.0pt;line-height:115%;color:black'>https://management.azure.com</span></p>
+  </td>
+  <td width=407 valign=top style='width:305.35pt;border-top:none;border-left:
+  none;border-bottom:solid #E6E6E6 1.0pt;border-right:solid #E6E6E6 1.0pt;
+  padding:6.0pt 6.0pt 5.25pt 9.0pt'>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;line-height:115%;
+  color:black'>Azure Resource Manager API � required for registration and
+  management</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=311 valign=top style='width:233.0pt;border:solid #E6E6E6 1.0pt;
+  border-top:none;padding:6.0pt 6.0pt 5.25pt 9.0pt'>
+  <p class=MsoNormal><span style='font-size:9.0pt;line-height:115%;color:black'>https://login.microsoftonline.com</span></p>
+  </td>
+  <td width=407 valign=top style='width:305.35pt;border-top:none;border-left:
+  none;border-bottom:solid #E6E6E6 1.0pt;border-right:solid #E6E6E6 1.0pt;
+  padding:6.0pt 6.0pt 5.25pt 9.0pt'>
+  <p class=MsoNormal><span style='font-size:9.0pt;line-height:115%;color:black'>Azure
+  AD authentication</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=311 valign=top style='width:233.0pt;border:solid #E6E6E6 1.0pt;
+  border-top:none;padding:6.0pt 6.0pt 5.25pt 9.0pt'>
+  <p class=MsoNormal><span style='font-size:9.0pt;line-height:115%;color:black'>https://graph.microsoft.com</span></p>
+  </td>
+  <td width=407 valign=top style='width:305.35pt;border-top:none;border-left:
+  none;border-bottom:solid #E6E6E6 1.0pt;border-right:solid #E6E6E6 1.0pt;
+  padding:6.0pt 6.0pt 5.25pt 9.0pt'>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;line-height:115%;
+  color:black'>Azure RBAC and identity graph access</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=311 valign=top style='width:233.0pt;border:solid #E6E6E6 1.0pt;
+  border-top:none;padding:6.0pt 6.0pt 5.25pt 9.0pt'>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;line-height:115%;
+  color:black'>https://gbl.his.arc.azure.com</span></p>
+  </td>
+  <td width=407 valign=top style='width:305.35pt;border-top:none;border-left:
+  none;border-bottom:solid #E6E6E6 1.0pt;border-right:solid #E6E6E6 1.0pt;
+  padding:6.0pt 6.0pt 5.25pt 9.0pt'>
+  <p class=MsoNormal><span style='font-size:9.0pt;line-height:115%;color:black'>Managed
+  Identity certificate retrieval</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=311 valign=top style='width:233.0pt;border:solid #E6E6E6 1.0pt;
+  border-top:none;padding:6.0pt 6.0pt 5.25pt 9.0pt'>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;line-height:115%;
+  color:black'>https://*.his.arc.azure.com</span></p>
+  </td>
+  <td width=407 valign=top style='width:305.35pt;border-top:none;border-left:
+  none;border-bottom:solid #E6E6E6 1.0pt;border-right:solid #E6E6E6 1.0pt;
+  padding:6.0pt 6.0pt 5.25pt 9.0pt'>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;line-height:115%;
+  color:black'>Managed Identity certificate retrieval (wildcard)</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=311 valign=top style='width:233.0pt;border:solid #E6E6E6 1.0pt;
+  border-top:none;padding:6.0pt 6.0pt 5.25pt 9.0pt'>
+  <p class=MsoNormal><span style='font-size:9.0pt;line-height:115%;color:black'>https://guestnotificationservice.azure.com</span></p>
+  </td>
+  <td width=407 valign=top style='width:305.35pt;border-top:none;border-left:
+  none;border-bottom:solid #E6E6E6 1.0pt;border-right:solid #E6E6E6 1.0pt;
+  padding:6.0pt 6.0pt 5.25pt 9.0pt'>
+  <p class=MsoNormal><span style='font-size:9.0pt;line-height:115%;color:black'>Guest
+  notifications</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=311 valign=top style='width:233.0pt;border:solid #E6E6E6 1.0pt;
+  border-top:none;padding:6.0pt 6.0pt 5.25pt 9.0pt'>
+  <p class=MsoNormal><span style='font-size:9.0pt;line-height:115%;color:black'>https://*.guestnotificationservice.azure.com</span></p>
+  </td>
+  <td width=407 valign=top style='width:305.35pt;border-top:none;border-left:
+  none;border-bottom:solid #E6E6E6 1.0pt;border-right:solid #E6E6E6 1.0pt;
+  padding:6.0pt 6.0pt 5.25pt 9.0pt'>
+  <p class=MsoNormal><span style='font-size:9.0pt;line-height:115%;color:black'>Guest
+  notifications (wildcard)</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=311 valign=top style='width:233.0pt;border:solid #E6E6E6 1.0pt;
+  border-top:none;padding:6.0pt 6.0pt 5.25pt 9.0pt'>
+  <p class=MsoNormal><span style='font-size:9.0pt;line-height:115%;color:black'>https://*.servicebus.windows.net</span></p>
+  </td>
+  <td width=407 valign=top style='width:305.35pt;border-top:none;border-left:
+  none;border-bottom:solid #E6E6E6 1.0pt;border-right:solid #E6E6E6 1.0pt;
+  padding:6.0pt 6.0pt 5.25pt 9.0pt'>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;line-height:115%;
+  color:black'>Required for telemetry and messaging</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=311 valign=top style='width:233.0pt;border:solid #E6E6E6 1.0pt;
+  border-top:none;padding:6.0pt 6.0pt 5.25pt 9.0pt'>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;line-height:115%;
+  color:black'>https://mcr.microsoft.com and https://*.data.mcr.microsoft.com</span></p>
+  </td>
+  <td width=407 valign=top style='width:305.35pt;border-top:none;border-left:
+  none;border-bottom:solid #E6E6E6 1.0pt;border-right:solid #E6E6E6 1.0pt;
+  padding:6.0pt 6.0pt 5.25pt 9.0pt'>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;line-height:115%;
+  color:black'>Container image pulls (if using Arc data services)</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=311 valign=top style='width:233.0pt;border:solid #E6E6E6 1.0pt;
+  border-top:none;padding:6.0pt 6.0pt 5.25pt 9.0pt'>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;line-height:115%;
+  color:black'>https://&lt;region&gt;.dp.kubernetesconfiguration.azure.com</span></p>
+  </td>
+  <td width=407 valign=top style='width:305.35pt;border-top:none;border-left:
+  none;border-bottom:solid #E6E6E6 1.0pt;border-right:solid #E6E6E6 1.0pt;
+  padding:6.0pt 6.0pt 5.25pt 9.0pt'>
+  <p class=MsoNormal><span style='font-size:9.0pt;line-height:115%;color:black'>Data
+  plane for configuration (region-specific)</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=311 valign=top style='width:233.0pt;border:solid #E6E6E6 1.0pt;
+  border-top:none;padding:6.0pt 6.0pt 4.5pt 9.0pt'>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;line-height:115%;
+  color:black'>https://&lt;region&gt;.obo.arc.azure.com:8084/</span></p>
+  </td>
+  <td width=407 valign=top style='width:305.35pt;border-top:none;border-left:
+  none;border-bottom:solid #E6E6E6 1.0pt;border-right:solid #E6E6E6 1.0pt;
+  padding:6.0pt 6.0pt 4.5pt 9.0pt'>
+  <p class=MsoNormal><span style='font-size:9.0pt;line-height:115%;color:black'>Cluster
+  Connect (if used)</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal><i><span lang=EN-US style='font-size:10.0pt;line-height:
+115%'>�Replace&nbsp;&lt;region&gt;&nbsp;with your Azure region (e.g.,&nbsp;westeurope,&nbsp;northeurope</span></i><span
+lang=EN-US style='font-size:10.0pt;line-height:115%'>, etc.)</span></p>
+
+<h1><span lang=EN-US>3. Connect Windows Server to Azure Arc</span></h1>
+
+<h2><span lang=EN-US>Option A: Using Azure Arc Setup Wizard (GUI)</span></h2>
+
+<p class=MsoNormal><span lang=EN-US>1. Open Start Menu and search for Azure Arc
+Setup.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>2. Or click the Azure Arc icon in the
+system tray.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>3. The wizard will:</span></p>
+
+<p class=MsoNormal><span lang=EN-US>�� - Check prerequisites.<br>
+�� - Download and install the Azure Connected Machine Agent.<br>
+�� - Prompt you to sign in to Azure.<br>
+�� - Ask for Subscription, Resource Group, Region, and Machine name.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>4. Click Finish. Your server is now visible
+in Azure Arc &gt; Servers.</span></p>
+
+<h2><span lang=EN-US>Option B: Manual CLI Method</span></h2>
+
+<p class=MsoListParagraph style='text-indent:-18.0pt'><span lang=EN-US>1.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span
+lang=EN-US>Download and install the agent:</span></p>
+
+<p class=MsoNormal style='background:#1E1E1E'><span lang=EN-US
+style='font-family:"Courier New";color:#4EC9B0'>Invoke-WebRequest</span><span
+lang=EN-US style='font-family:"Courier New";color:gainsboro'> -Uri
+https://aka.ms/AzureConnectedMachineAgent �<br>
+����������������� -OutFile AzureConnectedMachineAgent.msi<br>
+msiexec /i AzureConnectedMachineAgent.msi /l*v installation.log</span></p>
+
+<p class=MsoNoSpacing><span lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoListParagraph style='text-indent:-18.0pt'><span lang=EN-US>2.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span
+lang=EN-US>Connect to Azure:</span></p>
+
+<p class=MsoNormal style='background:#1E1E1E'><span lang=EN-US
+style='font-family:"Courier New";color:gainsboro'>az login<br>
+az connectedmachine connect `<br>
+� --resource-group </span><span lang=EN-US style='font-family:"Courier New";
+color:#D69D85'>&quot;Arc-RG&quot;</span><span lang=EN-US style='font-family:
+"Courier New";color:gainsboro'> `<br>
+� --name </span><span lang=EN-US style='font-family:"Courier New";color:#D69D85'>&quot;MyServer2022&quot;</span><span
+lang=EN-US style='font-family:"Courier New";color:gainsboro'> `<br>
+� --location </span><span lang=EN-US style='font-family:"Courier New";
+color:#D69D85'>&quot;westeurope&quot;</span></p>
+
+<h1><span lang=EN-US>4. Enable SQL Server for Azure Arc</span></h1>
+
+<p class=MsoListParagraph style='text-indent:-18.0pt'><span lang=EN-US>1.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span
+lang=EN-US>Download the onboarding script:</span></p>
+
+<p class=MsoNormal style='background:#1E1E1E'><span lang=EN-US
+style='font-family:"Courier New";color:#4EC9B0'>Invoke-WebRequest</span><span
+lang=EN-US style='font-family:"Courier New";color:gainsboro'> -Uri
+https://aka.ms/EnableSQLArc -OutFile EnableSQLArc.ps1</span></p>
+
+<p class=MsoListParagraph style='text-indent:-18.0pt'><span lang=EN-US>2.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span
+lang=EN-US>b. Run the script:</span></p>
+
+<p class=MsoNormal style='background:#1E1E1E'><span lang=EN-US
+style='font-family:"Courier New";color:gainsboro'>.\EnableSQLArc.ps1 `<br>
+� -SubscriptionId </span><span lang=EN-US style='font-family:"Courier New";
+color:#D69D85'>&quot;&lt;your-subscription-id&gt;&quot;</span><span lang=EN-US
+style='font-family:"Courier New";color:gainsboro'> `<br>
+� -ResourceGroup </span><span lang=EN-US style='font-family:"Courier New";
+color:#D69D85'>&quot;Arc-RG&quot;</span><span lang=EN-US style='font-family:
+"Courier New";color:gainsboro'> `<br>
+� -Region </span><span lang=EN-US style='font-family:"Courier New";color:#D69D85'>&quot;westeurope&quot;</span><span
+lang=EN-US style='font-family:"Courier New";color:gainsboro'> `<br>
+� -SqlInstanceName </span><span lang=EN-US style='font-family:"Courier New";
+color:#D69D85'>&quot;MSSQLSERVER&quot;</span></p>
+
+<h1><span lang=EN-US>5. Verify in Azure Portal</span></h1>
+
+<p class=MsoNormal><span lang=EN-US>- Go to Azure Arc &gt; Servers to see the
+registered machine.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>- Go to Azure Arc &gt; SQL Server to see
+the SQL instance.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>You can now:</span></p>
+
+<p class=MsoNormal><span lang=EN-US>- View inventory<br>
+- Apply policies<br>
+- Configure licensing (PAYG or BYOL)<br>
+- Enable monitoring</span></p>
+
+</div>
+
+</body>
+
+</html>
